@@ -1048,8 +1048,14 @@ angular.module('ui.dashboard')
       } else if (Class.template) {
         this.template = Class.template;
       } else {
-        var directive = Class.directive || Class.name;
-        this.directive = directive;
+        var directive = Class.directive;
+        if(Class.directives) {
+          this.directives = Class.directives;
+          if(!directive) {
+            directive = Object.keys(Class.directives).shift();
+          }
+        }
+        this.directive = directive || Class.name;
       }
     }
 
@@ -1133,6 +1139,14 @@ angular.module('ui.dashboard')
     $scope.makeTemplateString = function() {
 
       var widget = $scope.widget;
+
+      // Merge in any multi-widget
+      if(widget.directives) {
+          if(!widget.directive) {
+              widget.directive = Object.keys(widget.directives).shift();
+          }
+          jQuery.extend(true, widget, widget.directives[widget.directive]);
+      }
 
       // First, build template string
       var templateString = '';

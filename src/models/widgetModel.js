@@ -43,8 +43,14 @@ angular.module('ui.dashboard')
       } else if (Class.template) {
         this.template = Class.template;
       } else {
-        var directive = Class.directive || Class.name;
-        this.directive = directive;
+        var directive = Class.directive;
+        if(Class.directives) {
+          this.directives = Class.directives;
+          if(!directive) {
+            directive = Object.keys(Class.directives).shift();
+          }
+        }
+        this.directive = directive || Class.name;
       }
     }
 

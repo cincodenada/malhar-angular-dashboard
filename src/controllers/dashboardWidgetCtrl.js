@@ -24,6 +24,14 @@ angular.module('ui.dashboard')
 
       var widget = $scope.widget;
 
+      // Merge in any multi-widget
+      if(widget.directives) {
+          if(!widget.directive) {
+              widget.directive = Object.keys(widget.directives).shift();
+          }
+          jQuery.extend(true, widget, widget.directives[widget.directive]);
+      }
+
       // First, build template string
       var templateString = '';
 
