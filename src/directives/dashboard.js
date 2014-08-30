@@ -57,7 +57,7 @@ angular.module('ui.dashboard')
         // angular.extend(scope.options, defaults);
 
         // from dashboard="options"
-        scope.options = scope.$eval(attrs.dashboard);
+        angular.extend(scope.options, scope.$eval(attrs.dashboard));
 
         // Deep options
         scope.options.settingsModalOptions = scope.options.settingsModalOptions || {};
