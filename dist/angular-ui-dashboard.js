@@ -1281,6 +1281,11 @@ angular.module('ui.dashboard')
       $compile(widgetElement)($scope);
     };
 
+    $scope.setDirective = function(type) {
+      $scope.widget.directive = type;
+      $scope.compileTemplate();
+    };
+
     $scope.findWidgetContainer = function(element) {
       // widget placeholder is the first (and only) child of .widget-content
       return element.find('.widget-content');
