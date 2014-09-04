@@ -1063,6 +1063,11 @@ angular.module('ui.dashboard')
       // sets the width (and widthUnits)
       setWidth: function (width, units) {
         width = width.toString();
+        if(width == 'auto') {
+            this.style.width = width;
+            return true;
+        }
+
         units = units || width.replace(/^[-\.\d]+/, '') || '%';
         this.widthUnits = units;
         width = parseFloat(width);
@@ -1082,6 +1087,7 @@ angular.module('ui.dashboard')
 
     return WidgetModel;
   });
+
 /*
  * Copyright (c) 2014 DataTorrent, Inc. ALL Rights Reserved.
  *
