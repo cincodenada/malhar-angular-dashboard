@@ -26,8 +26,9 @@ angular.module('ui.dashboard')
 
       // Merge in any multi-widget
       if(widget.directives) {
+          widget.directive_list = Object.keys(widget.directives);
           if(!widget.directive) {
-              widget.directive = Object.keys(widget.directives).shift();
+              widget.directive = widget.directive_list[0];
           }
           jQuery.extend(true, widget, widget.directives[widget.directive]);
       }
@@ -167,6 +168,15 @@ angular.module('ui.dashboard')
 
     $scope.setDirective = function(type) {
       $scope.widget.directive = type;
+      $scope.compileTemplate();
+    };
+
+    $scope.toggleDirective = function() {
+      if($scope.widget.directive == $scope.widget.directive_list[0]) {
+        $scope.widget.directive = $scope.widget.directive_list[1];
+      } else {
+        $scope.widget.directive = $scope.widget.directive_list[0];
+      }
       $scope.compileTemplate();
     };
 
