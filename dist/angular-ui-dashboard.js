@@ -286,6 +286,8 @@ angular.module('ui.dashboard')
         scope.options.addWidget = scope.addWidget;
         scope.options.loadWidgets = scope.loadWidgets;
         scope.options.saveDashboard = scope.externalSaveDashboard;
+        scope.options.resetWidgetsToDefault = scope.resetWidgetsToDefault;
+        scope.options.clear = scope.clear;
 
 
         // save state
