@@ -33,6 +33,11 @@ angular.module('ui.dashboard')
           jQuery.extend(true, widget, widget.directives[widget.directive]);
       }
 
+      // Expose list of options
+      widget.optionkeys = widget.dataModelOptions.settings 
+      ? Object.keys(widget.dataModelOptions.settings)
+      : [];
+
       // First, build template string
       var templateString = '';
 
