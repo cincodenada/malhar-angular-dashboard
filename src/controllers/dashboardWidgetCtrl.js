@@ -183,6 +183,7 @@ angular.module('ui.dashboard')
         $scope.widget.directive = $scope.widget.directive_list[0];
       }
       $scope.compileTemplate();
+      $scope.$emit('widgetChanged', $scope.widget);
     };
 
     $scope.findWidgetContainer = function(element) {

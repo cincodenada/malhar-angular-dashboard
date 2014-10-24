@@ -778,10 +778,11 @@ angular.module('ui.dashboard')
           var widgetObject = {
             title: widget.title,
             name: widget.name,
+            directive: widget.directive,
             style: widget.style,
             dataModelOptions: widget.dataModelOptions,
             storageHash: widget.storageHash,
-            attrs: widget.attrs
+            attrs: widget.attrs,
           };
 
           return widgetObject;
@@ -1309,6 +1310,7 @@ angular.module('ui.dashboard')
         $scope.widget.directive = $scope.widget.directive_list[0];
       }
       $scope.compileTemplate();
+      $scope.$emit('widgetChanged', $scope.widget);
     };
 
     $scope.findWidgetContainer = function(element) {

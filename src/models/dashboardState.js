@@ -44,10 +44,11 @@ angular.module('ui.dashboard')
           var widgetObject = {
             title: widget.title,
             name: widget.name,
+            directive: widget.directive,
             style: widget.style,
             dataModelOptions: widget.dataModelOptions,
             storageHash: widget.storageHash,
-            attrs: widget.attrs
+            attrs: widget.attrs,
           };
 
           return widgetObject;
