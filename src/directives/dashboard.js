@@ -211,7 +211,9 @@ angular.module('ui.dashboard')
          */
         scope.saveDashboard = function (force) {
           if (!scope.options.explicitSave) {
+            scope.$emit('malhar.saveStart');
             scope.dashboardState.save(scope.widgets);
+            scope.$emit('malhar.saveDone');
           } else {
             if (typeof scope.options.unsavedChangeCount !== 'number') {
               scope.options.unsavedChangeCount = 0;
