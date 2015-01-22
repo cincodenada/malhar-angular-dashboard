@@ -98,7 +98,8 @@ angular.module('ui.dashboard')
           scope.options.storageId,
           scope.options.storageHash,
           scope.widgetDefs,
-          scope.options.stringifyStorage
+          scope.options.stringifyStorage,
+          scope.options.widgetOverrides
         );
 
         /**
