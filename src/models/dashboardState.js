@@ -18,13 +18,13 @@
 
 angular.module('ui.dashboard')
   .factory('DashboardState', ['$log', '$q', function ($log, $q) {
-    function DashboardState(storage, id, hash, widgetDefinitions, stringify, widgetOverrides) {
+    function DashboardState(storage, id, hash, widgetDefinitions, stringify, dataModelOverrides) {
       this.storage = storage;
       this.id = id;
       this.hash = hash;
       this.widgetDefinitions = widgetDefinitions;
       this.stringify = stringify;
-      this.widgetOverrides = widgetOverrides || {};
+      this.dataModelOverrides = dataModelOverrides || [];
     }
 
     DashboardState.prototype = {
@@ -94,20 +94,6 @@ angular.module('ui.dashboard')
         }
       },
 
-      _treeMap: function(source_tree, callback, path) {
-          var me = this;
-          if(!path) { path = []; }
-          angular.forEach(source_tree, function(val, key) {
-              var curpath = angular.copy(path);
-              curpath.push(key);
-              if(val === true) {
-                callback(curpath)
-              } else {
-                me._treeMap(source_tree[key], callback, curpath);
-              }
-          });
-      },
-
       _handleSyncLoad: function(serialized) {
 
         var deserialized, result = [];
@@ -171,22 +157,11 @@ angular.module('ui.dashboard')
             continue;
           }
 
-          console.log(this.widgetOverrides, savedWidgetDef, widgetDefinition);
-          this._treeMap(this.widgetOverrides, function(path) {
-              var dstNode = savedWidgetDef;
-              var srcNode = widgetDefinition;
-              for(i=0; i < path.length; i++) {
-                  var key = path[i];
-                  if(dstNode.hasOwnProperty(key) && srcNode.hasOwnProperty(key)) {
-                      dstNode = dstNode[key];
-                      srcNode = srcNode[key];
-                  } else {
-                      return false;
-                  }
-              }
-              dstNode = srcNode;
-          });
-          console.log(this.widgetOverrides, savedWidgetDef, widgetDefinition);
+          for(var j = 0; j < this.dataModelOverrides.length; j++) {
+              var key = this.dataModelOverrides[j];
+              savedWidgetDef.dataModelOptions[key] =
+                  angular.copy(widgetDefinition.dataModelOptions[key]);
+          }
 
           // push instantiated widget to result array
           result.push(savedWidgetDef);
